@@ -11,13 +11,13 @@
 
 
 /*
-PK: event_date, article_id, frequency_segment
+PK: event_date, page_title, hour
 */
 with grouped as (
     select
         event_date
-        , article_id
-        , frequency_segment
+        , page_title
+        , extract(hour from created_at at time zone 'Asia/Tokyo') as hour
         , any_value(published_at) as published_at
         , count(1) as page_views
         , count(distinct session_key) as sessions
@@ -25,9 +25,6 @@ with grouped as (
         , countif(read_to_end) as read_to_ends
     from
         {{ ref('stg_ga__page_views') }} pv
-        inner join
-            {{ ref('stg_ga__users') }} u
-            using (event_date, user_pseudo_id)
     {% if is_incremental() %}
     where event_date >= _dbt_max_partition
     {% endif %}

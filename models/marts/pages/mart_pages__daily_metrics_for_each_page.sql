@@ -11,12 +11,12 @@
 
 
 /*
-PK: event_date, article_id, device_category, page_type, page_number
+PK: event_date, page_title, device_category, page_type, page_number
 */
 with grouped as (
     select
         event_date
-        , article_id
+        , page_title
         , device.category as device_category
         , page_type
         , page_number

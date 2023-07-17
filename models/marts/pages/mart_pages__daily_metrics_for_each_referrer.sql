@@ -10,26 +10,41 @@
 }}
 
 
-/*
-PK: event_date, article_id, device_category
-*/
-with grouped as (
+with joined as (
     select
         event_date
-        , article_id
-        , device.category as device_category
+        , page_title
+        , s.source
+        , s.medium
+        , published_at
+        , session_key
+        , user_pseudo_id
+        , read_to_end
+    from
+        {{ ref('stg_ga__page_views') }} pv
+        inner join
+            {{ ref('stg_ga__sessions') }} s
+            using (event_date, user_pseudo_id, session_key)
+    {% if is_incremental() %}
+    where event_date >= _dbt_max_partition
+    {% endif %}
+),
+
+/*
+PK: event_date, page_title, classify_referrer
+*/
+grouped as (
+    select
+        event_date
+        , page_title
+        , {{ classify_referrer('source', 'medium') }} as referrer
         , any_value(published_at) as published_at
         , count(1) as page_views
         , count(distinct session_key) as sessions
         , count(distinct user_pseudo_id) as unique_users
         , countif(read_to_end) as read_to_ends
-    from
-        {{ ref('stg_ga__page_views') }}
-    {% if is_incremental() %}
-    where event_date >= _dbt_max_partition
-    {% endif %}
-    group by
-        1, 2, 3
+    from joined
+    group by 1, 2, 3
 )
 
 select
