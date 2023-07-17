@@ -1,5 +1,5 @@
 select
-    article_id
+    page_title
     , referrer
     , sum(page_views) as page_views
     , sum(sessions) as sessions
@@ -14,6 +14,6 @@ select
     , sum(if(is_1st_month, unique_users, 0)) as unique_users_1st_month
     , sum(if(is_1st_month, read_to_ends, 0)) as read_to_ends_1st_month
 from
-    {{ ref('mart_individual__daily_metrics_for_each_referrer') }}
+    {{ ref('mart_pages__daily_metrics_for_each_referrer') }}
 group by
     1, 2
