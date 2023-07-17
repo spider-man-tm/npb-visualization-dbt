@@ -11,20 +11,20 @@
 
 
 /*
-PK: event_date, article_id, hour
+PK: event_date, page_title, device_category
 */
 with grouped as (
     select
         event_date
-        , article_id
-        , extract(hour from created_at at time zone 'Asia/Tokyo') as hour
+        , page_title
+        , device.category as device_category
         , any_value(published_at) as published_at
         , count(1) as page_views
         , count(distinct session_key) as sessions
         , count(distinct user_pseudo_id) as unique_users
         , countif(read_to_end) as read_to_ends
     from
-        {{ ref('stg_ga__page_views') }} pv
+        {{ ref('stg_ga__page_views') }}
     {% if is_incremental() %}
     where event_date >= _dbt_max_partition
     {% endif %}

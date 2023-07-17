@@ -1,7 +1,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: "asset_management_simulation"
+name: "npb_visualization"
 version: "1.0.0"
 config-version: 2
 
@@ -30,7 +30,7 @@ clean-targets: # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  asset_management_simulation:
+  npb_visualization:
     # Applies to all files under models/example/
     staging:
       +schema: staging
@@ -39,9 +39,9 @@ models:
       core:
         +schema: marts
         +materialized: table
-      individual:
-        +schema: marts_individual
+      pages:
+        +schema: marts_pages
         +materialized: table
 
 vars:
-  ga_start_date: "20230401"
+  ga_start_date: "20230701"
