@@ -42,6 +42,9 @@ models:
       pages:
         +schema: marts_pages
         +materialized: table
+      teams:
+        +schema: marts_teams
+        +materialized: table
 
 vars:
   ga_start_date: "20230701"

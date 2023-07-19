@@ -18,7 +18,6 @@ with grouped as (
         event_date
         , page_title
         , frequency_segment
-        , any_value(published_at) as published_at
         , count(1) as page_views
         , count(distinct session_key) as sessions
         , count(distinct user_pseudo_id) as unique_users
@@ -37,8 +36,7 @@ with grouped as (
 
 select
     *
-    , event_date = date(published_at) as is_published_date
-    , {{ is_1st_week('event_date', 'published_at') }} as is_1st_week
-    , {{ is_1st_month('event_date', 'published_at') }} as is_1st_month
+    , {{ is_within_1week('event_date', 'current_date()') }} as is_within_1week
+    , {{ is_within_1month('event_date', 'current_date()') }} as is_within_1month
 from
     grouped
