@@ -1,6 +1,6 @@
 ## npb-visualization-dbt
 
-- 自作のWebAppであるNPB Data VisualizationのELTパイプラインに関するレポジトリ
+- 自作のWebAppである[NPB Data Visualization](https://npb-visualization.com/)のELTパイプラインに関するレポジトリ
 
 <br />
 
