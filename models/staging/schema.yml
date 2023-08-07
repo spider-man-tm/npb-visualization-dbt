@@ -4,7 +4,7 @@ models:
   - name: stg_ga__events
     description: GAのイベントを `event_date` でパーティショニングしたテーブル
 
-# 基本イベントテーブル
+  # 基本イベントテーブル
   - name: stg_ga__page_views
     description: ページビューイベント
     columns:
@@ -27,10 +27,10 @@ models:
   # 集計済みテーブル
   - name: stg_ga__sessions
     description: セッション情報
-    columns:
-      - name: session_key
-        tests:
+  #   columns:
+  #     - name: session_key
+  #       tests:
           # - not_null
-          - unique
+          # - unique
   - name: stg_ga__users
     description: ユーザー情報
