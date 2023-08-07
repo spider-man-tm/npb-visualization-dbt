@@ -12,6 +12,7 @@
         when {{ page_title }} like '%ヤクルト%' then 'ヤクルト'
         when {{ page_title }} like '%広島%' then '広島'
         when {{ page_title }} like '%DeNA%' then 'DeNA'
-        else '不明'
+        when {{ page_title }} is null then '不明'
+        else '共通ページ'
     end
 {%- endmacro -%}
