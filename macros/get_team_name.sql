@@ -1,3 +1,7 @@
+/*
+page_titleからチーム名を取得する
+*/
+
 {%- macro get_team_name(page_title) -%}
     case
         when {{ page_title }} like '%埼玉%' then '西武'
