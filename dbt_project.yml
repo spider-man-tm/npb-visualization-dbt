@@ -37,7 +37,7 @@ models:
       +materialized: view
     marts:
       core:
-        +schema: marts
+        +schema: marts_core
         +materialized: table
       pages:
         +schema: marts_pages
@@ -45,6 +45,14 @@ models:
       teams:
         +schema: marts_teams
         +materialized: table
+      players:
+        +schema: marts_players
+        +materialized: table
 
 vars:
-  ga_start_date: "20230701"
+  ga4:
+    project: "npb-visualization"
+    dataset: "analytics_285243139"
+    start_date: "20230701" # Earliest date to load
+    static_incremental_days: 3 # Number of days to scan and reprocess on each run
+    query_parameter_exclusions: ["gclid", "fbclid", "_ga"]
